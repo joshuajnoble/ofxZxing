@@ -31,14 +31,17 @@ void testApp::update(){
         }
 
         // invert the image
-        for (int i = 0; i < imagePicker->height; i++){
-            memcpy(cameraPixels+(imagePicker->height-i-1)*imagePicker->width*4, imagePicker->pixels+i*imagePicker->width*4, imagePicker->width*4);
-        }
+        //for (int i = 0; i < imagePicker->height; i++){
+        //    memcpy(cameraPixels+(imagePicker->height-i-1)*imagePicker->width*4, imagePicker->pixels+i*imagePicker->width*4, imagePicker->width*4);
+        //}
 		
-		//img.setFromPixels(imagePicker->pixels, imagePicker->width, imagePicker->height, OF_IMAGE_COLOR_ALPHA, true);
-		img.setFromPixels(cameraPixels, imagePicker->width, imagePicker->height, OF_IMAGE_COLOR_ALPHA, true);
+		img.setFromPixels(imagePicker->pixels, imagePicker->width, imagePicker->height, OF_IMAGE_COLOR_ALPHA, true);
+		//img.setFromPixels(cameraPixels, imagePicker->width, imagePicker->height, OF_IMAGE_COLOR_ALPHA, true);
 		img.setImageType(OF_IMAGE_COLOR);
 		img.resize(320, 460); // just setting this to be actual screen height
+        
+        // this accomplishes the same as the memcpy above
+        img.getPixelsRef().mirror(true, false);
 		
 		ofxZxing::Result curResult = ofxZxing::decode(img.getPixelsRef(), true);
 		//float curTime = ofGetElapsedTimef();
