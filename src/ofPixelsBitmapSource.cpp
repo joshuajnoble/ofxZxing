@@ -7,6 +7,14 @@ ofPixelsBitmapSource::ofPixelsBitmapSource(ofPixels& pixels) : image_(pixels) {
   height = pixels.getHeight();
 	pixel_cache = pixels.getPixels();
 }
+    
+// in this case we don't own our pixels && don't worry about allocating it
+ofPixelsBitmapSource::ofPixelsBitmapSource(const unsigned char **pixels, int _width, int _height) {
+    
+    width = _width;
+    height = _height;
+    pixel_cache = *pixels;
+}
 
 ofPixelsBitmapSource::~ofPixelsBitmapSource() {
 
